@@ -10,7 +10,10 @@
     <ul>
 
     {% for sporocilo in vsa_sporocila %} <!-- S pomocjo jinja for zanke se sprehodimo cez vsa_sporocila-->
-        <li>{{ sporocilo.besedilo }}</li>
+        <li>{{ sporocilo.key.id() }}<br>
+            {{ sporocilo.besedilo }} <br>
+            {{ sporocilo.nastanek }}
+        </li>
         <!-- Izpisimo samo besedilo sporocila, naloga v razmislek, kaj se zgodi,
         ce bi namesto sporocilo.besedilo napisali sporocilo (preveri) -->
     {% endfor %}
