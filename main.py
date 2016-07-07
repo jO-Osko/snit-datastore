@@ -51,7 +51,16 @@ class RezultatHandler(BaseHandler):
         return self.write("Vpisal si: " + sporocilo.besedilo)
 
 
+class SeznamSporocilHandler(BaseHandler):
+    def get(self):
+        params = dict()  # Dodatne informacije, ki jih bomo posredovali jinji
+        # Iz baze pridobimo vsa sporocila
+        vsa_sporocila = Sporocilo.query().fetch()
+        params["vsa_sporocila"] = vsa_sporocila
+        return self.render_template("seznam_sporocil.html", params=params)
+
 app = webapp2.WSGIApplication([
     ('/', IndexHandler),
     ('/rezultat', RezultatHandler),
+    ('/seznam-sporocil', SeznamSporocilHandler)
 ], debug=True)
