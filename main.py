@@ -5,6 +5,8 @@ import os
 import jinja2
 import webapp2
 
+from models import Sporocilo  # vkljucimo sporocilo
+
 template_dir = os.path.join(os.path.dirname(__file__), "templates")
 jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=False)
 
@@ -35,8 +37,18 @@ class IndexHandler(BaseHandler):
 
 class RezultatHandler(BaseHandler):
     def post(self):
-        sporocilo = self.request.get("vnos")
-        return self.write("Vpisal si: " + sporocilo)
+
+        # Kot prej preberemo besedilo, ki ga je uporabnik vpisal
+        besedilo_sporocila = self.request.get("vnos")
+
+        # Naredimo nov objek sporocilo in mu za besedilo nastavimo vpisano besedilo
+        sporocilo = Sporocilo(besedilo=besedilo_sporocila)
+        # Ker je Sporocilo podedovalo stvari od ndb.Model, je podedovalo tudi konstruktor
+
+        # Shranimo sporocilo v bazo (Spet to metodo dobimo "zastonj" skozi dedovanje)
+        sporocilo.put()
+
+        return self.write("Vpisal si: " + sporocilo.besedilo)
 
 
 app = webapp2.WSGIApplication([
