@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Seznam sporocil</title>
 </head>
 <body>
     <h1>Seznam sporočil</h1>
@@ -10,7 +10,7 @@
     <ul>
 
     {% for sporocilo in vsa_sporocila %} <!-- S pomocjo jinja for zanke se sprehodimo cez vsa_sporocila-->
-        <li>{{ sporocilo.key.id() }}<br>
+        <li><a href="/sporocilo/{{ sporocilo.key.id() }}">{{ sporocilo.key.id() }}</a> <br>
             {{ sporocilo.besedilo }} <br>
             {{ sporocilo.nastanek }}
         </li>
